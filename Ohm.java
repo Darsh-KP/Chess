@@ -3,3 +3,6 @@ public class Ohm {
         System.out.println("hello");
     }
 }
+class patel extends ohm{
+    System.out.println("what now");
+}
