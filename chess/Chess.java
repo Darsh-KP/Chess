@@ -2,6 +2,8 @@ package chess;
 
 import java.util.ArrayList;
 
+import chess.ReturnPiece.PieceFile;
+
 class ReturnPiece {
 	static enum PieceType {WP, WR, WN, WB, WQ, WK, 
 		            BP, BR, BN, BB, BK, BQ};
@@ -42,18 +44,19 @@ public class Chess {
 	enum Player { white, black }
 	
 	// chessBoard is stoing the pieces and the status of the game
-	private static ReturnPlay currentBoard;
+	private static ReturnPlay currentStatus = new ReturnPlay();
 	
 	public static ReturnPlay play(String move) {
 
-		return currentBoard; // Needs to return a ReturnPlay Object
+		return currentStatus; // Needs to return a ReturnPlay Object
 	}
 	
-	
-	/**
-	 * This method should reset the game, and start from scratch.
-	 */
+	// Starts a new game of chess, puting all the pieces in their starting positions
 	public static void start() {
-		// Starting a new game of chess, put all the pieces in their starting positions
+		currentStatus.piecesOnBoard = new ArrayList<ReturnPiece>();
+		ArrayList<ReturnPiece> currentBoard = currentStatus.piecesOnBoard;
+		
+		ReturnPiece thisPawn = new Pawn(Player.white, PieceFile.a, 2);
+		currentBoard.add(thisPawn);
 	}
 }
