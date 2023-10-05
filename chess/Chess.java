@@ -56,7 +56,22 @@ public class Chess {
 		currentStatus.piecesOnBoard = new ArrayList<ReturnPiece>();
 		ArrayList<ReturnPiece> currentBoard = currentStatus.piecesOnBoard;
 		
-		ReturnPiece thisPawn = new Pawn(Player.white, PieceFile.a, 2);
-		currentBoard.add(thisPawn);
+		currentBoard.add(new Pawn(Player.white, PieceFile.a, 2));
+		currentBoard.add(new Pawn(Player.white, PieceFile.b, 2));
+		currentBoard.add(new Pawn(Player.white, PieceFile.c, 2));
+		currentBoard.add(new Pawn(Player.white, PieceFile.d, 2));
+		currentBoard.add(new Pawn(Player.white, PieceFile.e, 2));
+		currentBoard.add(new Pawn(Player.white, PieceFile.f, 2));
+		currentBoard.add(new Pawn(Player.white, PieceFile.g, 2));
+		currentBoard.add(new Pawn(Player.white, PieceFile.h, 2));
+
+		currentBoard.add(new Pawn(Player.black, PieceFile.a, 7));
+		currentBoard.add(new Pawn(Player.black, PieceFile.b, 7));
+		currentBoard.add(new Pawn(Player.black, PieceFile.c, 7));
+		currentBoard.add(new Pawn(Player.black, PieceFile.d, 7));
+		currentBoard.add(new Pawn(Player.black, PieceFile.e, 7));
+		currentBoard.add(new Pawn(Player.black, PieceFile.f, 7));
+		currentBoard.add(new Pawn(Player.black, PieceFile.g, 7));
+		currentBoard.add(new Pawn(Player.black, PieceFile.h, 7));
 	}
 }
