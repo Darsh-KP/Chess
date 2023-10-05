@@ -10,13 +10,16 @@ class ReturnPiece {
 	PieceType pieceType;
 	PieceFile pieceFile;
 	int pieceRank;  // 1..8
+
 	public String toString() {
 		return ""+pieceFile+pieceRank+":"+pieceType;
 	}
+
 	public boolean equals(Object other) {
 		if (other == null || !(other instanceof ReturnPiece)) {
 			return false;
 		}
+
 		ReturnPiece otherPiece = (ReturnPiece)other;
 		return pieceType == otherPiece.pieceType &&
 				pieceFile == otherPiece.pieceFile &&
@@ -35,25 +38,15 @@ class ReturnPlay {
 }
 
 public class Chess {
-	
+	// Playe enum to select between current player
 	enum Player { white, black }
 	
-	/**
-	 * Plays the next move for whichever player has the turn.
-	 * 
-	 * @param move String for next move, e.g. "a2 a3"
-	 * 
-	 * @return A ReturnPlay instance that contains the result of the move.
-	 *         See the section "The Chess class" in the assignment description for details of
-	 *         the contents of the returned ReturnPlay instance.
-	 */
+	// chessBoard is stoing the pieces and the status of the game
+	private static ReturnPlay currentBoard;
+	
 	public static ReturnPlay play(String move) {
 
-		/* FILL IN THIS METHOD */
-		
-		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
-		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
-		return null;
+		return currentBoard; // Needs to return a ReturnPlay Object
 	}
 	
 	
@@ -61,6 +54,6 @@ public class Chess {
 	 * This method should reset the game, and start from scratch.
 	 */
 	public static void start() {
-		/* FILL IN THIS METHOD */
+		// Starting a new game of chess, put all the pieces in their starting positions
 	}
 }
