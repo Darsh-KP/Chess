@@ -2,6 +2,8 @@ package chess;
 
 import java.util.ArrayList;
 
+import chess.ReturnPiece.PieceFile;
+
 class ReturnPiece {
 	static enum PieceType {WP, WR, WN, WB, WQ, WK, 
 		            BP, BR, BN, BB, BK, BQ};
@@ -10,13 +12,16 @@ class ReturnPiece {
 	PieceType pieceType;
 	PieceFile pieceFile;
 	int pieceRank;  // 1..8
+
 	public String toString() {
 		return ""+pieceFile+pieceRank+":"+pieceType;
 	}
+
 	public boolean equals(Object other) {
 		if (other == null || !(other instanceof ReturnPiece)) {
 			return false;
 		}
+
 		ReturnPiece otherPiece = (ReturnPiece)other;
 		return pieceType == otherPiece.pieceType &&
 				pieceFile == otherPiece.pieceFile &&
@@ -35,32 +40,23 @@ class ReturnPlay {
 }
 
 public class Chess {
-	
+	// Playe enum to select between current player
 	enum Player { white, black }
 	
-	/**
-	 * Plays the next move for whichever player has the turn.
-	 * 
-	 * @param move String for next move, e.g. "a2 a3"
-	 * 
-	 * @return A ReturnPlay instance that contains the result of the move.
-	 *         See the section "The Chess class" in the assignment description for details of
-	 *         the contents of the returned ReturnPlay instance.
-	 */
+	// chessBoard is stoing the pieces and the status of the game
+	private static ReturnPlay currentStatus = new ReturnPlay();
+	
 	public static ReturnPlay play(String move) {
 
-		/* FILL IN THIS METHOD */
-		
-		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
-		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
-		return null;
+		return currentStatus; // Needs to return a ReturnPlay Object
 	}
 	
-	
-	/**
-	 * This method should reset the game, and start from scratch.
-	 */
+	// Starts a new game of chess, puting all the pieces in their starting positions
 	public static void start() {
-		/* FILL IN THIS METHOD */
+		currentStatus.piecesOnBoard = new ArrayList<ReturnPiece>();
+		ArrayList<ReturnPiece> currentBoard = currentStatus.piecesOnBoard;
+		
+		ReturnPiece thisPawn = new Pawn(Player.white, PieceFile.a, 2);
+		currentBoard.add(thisPawn);
 	}
 }
