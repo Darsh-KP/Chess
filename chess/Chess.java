@@ -3,6 +3,7 @@ package chess;
 import java.util.ArrayList;
 
 import chess.ReturnPiece.PieceFile;
+import chess.ReturnPlay.Message;
 
 class ReturnPiece {
 	static enum PieceType {WP, WR, WN, WB, WQ, WK, 
@@ -53,8 +54,16 @@ public class Chess {
 		// Remove leading and trailing spaces
 		move = move.trim();
 
+		// Reset message everytime
+		currentStatus.message = null;
+
 		// Check for Resign
+		if ((move.length() > 5) && (move.substring(0, 6).equals("resign"))) {
 			// Return the same board with specific message
+			currentStatus.message = (currentPlayer == Player.white) ? Message.RESIGN_BLACK_WINS : Message.RESIGN_WHITE_WINS;
+			System.out.println("Resigned");
+			return currentStatus;
+		}
 
 		// Move the piece
 			// If succesful, do nothing
@@ -69,6 +78,14 @@ public class Chess {
 
 		// If move is sucessful, change the current player to another player
 		currentPlayer = (currentPlayer == Player.white) ? Player.black : Player.white;
+
+		// Adds all the pieces from array to arraylist
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (currentBoard[i][j] != null)
+					currentStatus.piecesOnBoard.add(currentBoard[i][j]);
+			}
+		}
 
 		return currentStatus; // Needs to return a ReturnPlay Object
 	}
@@ -100,8 +117,6 @@ public class Chess {
 
 		// Set's the current player to white everytime a new game starts
 		currentPlayer = Player.white;
-
-		System.out.println(currentStatus.piecesOnBoard.get(0).getClass());
 	}
 
 
