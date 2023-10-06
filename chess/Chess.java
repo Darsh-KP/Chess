@@ -65,7 +65,7 @@ public class Chess {
 
 		// Draw if draw was called
 
-		// Draw if stalemate
+		// (Optional) Other draws
 
 		// If move is sucessful, change the current player to another player
 		currentPlayer = (currentPlayer == Player.white) ? Player.black : Player.white;
