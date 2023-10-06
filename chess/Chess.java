@@ -42,14 +42,38 @@ public class Chess {
 		white, black
 	}
 
+
+
 	// Stores the pieces and the status of the game
 	private static ReturnPlay currentStatus;
 	private static ReturnPiece[][] currentBoard;
-
+	private static Player currentPlayer;
+	
 	public static ReturnPlay play(String move) {
+		// Remove leading and trailing spaces
+		move = move.trim();
+
+		// Check for Resign
+			// Return the same board with specific message
+
+		// Move the piece
+			// If succesful, do nothing
+			// Otherwise illegal move
+
+		// Check for check
+			// Check for checkmate
+
+		// Draw if draw was called
+
+		// Draw if stalemate
+
+		// If move is sucessful, change the current player to another player
+		currentPlayer = (currentPlayer == Player.white) ? Player.black : Player.white;
 
 		return currentStatus; // Needs to return a ReturnPlay Object
 	}
+
+
 
 	// Starts a new game of chess, puting all the pieces in their starting positions
 	public static void start() {
@@ -73,8 +97,15 @@ public class Chess {
 					currentStatus.piecesOnBoard.add(currentBoard[i][j]);
 			}
 		}
+
+		// Set's the current player to white everytime a new game starts
+		currentPlayer = Player.white;
+
+		System.out.println(currentStatus.piecesOnBoard.get(0).getClass());
 	}
 
+
+	
 	// Helps gets the rank in the array, as the rank in the array starts from the top
 	public static int getRank(int rank) {
 		return 7 - rank;
@@ -93,5 +124,19 @@ public class Chess {
             case 7: return PieceFile.h;
         }
 		return PieceFile.a;
+	}
+
+	public static int getIntFile(char file) {
+		switch (file) {
+            case 'a': return 0;
+            case 'b': return 1;
+            case 'c': return 2;
+            case 'd': return 3;
+            case 'e': return 4;
+            case 'f': return 5;
+            case 'g': return 6;
+            case 'h': return 7;
+        }
+		return 0;
 	}
 }
