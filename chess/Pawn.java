@@ -1,5 +1,7 @@
 package chess;
 
+import java.util.ArrayList;
+
 import chess.Chess.Player;
 
 public class Pawn extends ReturnPiece {
@@ -35,7 +37,15 @@ public class Pawn extends ReturnPiece {
         return -1;
     }
 
-    public String[] validMoves() {
-        return new String[1];
+    // Returns an arraylist with all the moves that the piece can make
+    private ArrayList<String> validMoves(ReturnPiece[][] currentBoard) {
+        ArrayList<String> validMoves = new ArrayList<String>();
+
+        // Check if the pawn can move forward
+        if (currentBoard[Chess.getFile(pieceFile) + 1][pieceRank] == null) {
+            
+        }
+
+        return validMoves;
     }
 }

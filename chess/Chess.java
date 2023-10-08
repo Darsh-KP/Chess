@@ -170,6 +170,7 @@ public class Chess {
 		return PieceFile.a;
 	}
 
+	// Converts from char of a file to number of a file
 	public static int getFile(char file) {
 		switch (file) {
             case 'a': return 0;
@@ -180,6 +181,21 @@ public class Chess {
             case 'f': return 5;
             case 'g': return 6;
             case 'h': return 7;
+        }
+		return 0;
+	}
+
+	// Converts from pieceFile to int
+	public static int getFile(PieceFile file) {
+		switch (file) {
+            case a: return 0;
+            case b: return 1;
+            case c: return 2;
+            case d: return 3;
+            case e: return 4;
+            case f: return 5;
+            case g: return 6;
+            case h: return 7;
         }
 		return 0;
 	}
