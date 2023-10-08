@@ -3,14 +3,16 @@ package chess;
 import chess.Chess.Player;
 
 public class Pawn extends ReturnPiece {
-    // Creates a pawn and which can be casted to returnPiece
+    // Creates a pawn, which can be casted to returnPiece
     Pawn(Chess.Player player, PieceFile file, int rank) {
         pieceType = (player == Player.white) ? PieceType.WP : PieceType.BP;
         pieceFile = file;
         pieceRank = rank;
     }
 
-    public void move() {
+    public int move(String moveTo) {
+        System.out.println("Moving Pawn to: " + moveTo);
+
         // Check for valid moves
             // Cannont move through pieces
             // Can capture a piece at the end of path if the piece is of opposite color
@@ -30,6 +32,7 @@ public class Pawn extends ReturnPiece {
 
         // Find a way to return the original board if move was unable to be exceuted
             // Return -1 if move was unsuccesful (Illegal Move)
+        return -1;
     }
 
     public String[] validMoves() {

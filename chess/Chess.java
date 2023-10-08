@@ -61,11 +61,13 @@ public class Chess {
 		if ((move.length() > 5) && (move.substring(0, 6).equals("resign"))) {
 			// Return the same board with specific message
 			currentStatus.message = (currentPlayer == Player.white) ? Message.RESIGN_BLACK_WINS : Message.RESIGN_WHITE_WINS;
-			System.out.println("Resigned");
 			return currentStatus;
 		}
 
 		// Move the piece
+		//System.out.println(getIntFile(move.charAt(0)) + " " + Character.getNumericValue(move.charAt(1)));
+		//ReturnPiece selectedPiece = currentBoard[getIntFile(move.charAt(0))][Character.getNumericValue(move.charAt(1))];
+		//((Pawn) selectedPiece).move(move.substring(3));
 			// If succesful, do nothing
 			// Otherwise illegal move
 
@@ -80,11 +82,21 @@ public class Chess {
 		currentPlayer = (currentPlayer == Player.white) ? Player.black : Player.white;
 
 		// Adds all the pieces from array to arraylist
+		currentStatus.piecesOnBoard = new ArrayList<ReturnPiece>();
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (currentBoard[i][j] != null)
 					currentStatus.piecesOnBoard.add(currentBoard[i][j]);
 			}
+		}
+
+		// Prints 2d array
+		for (int rank = 0; rank < 8; rank++) {
+			for (int file = 0; file < 8; file++) {
+				if (currentBoard[file][rank] != null)
+					System.out.print(currentBoard[file][rank] + " ");
+			}
+			System.out.println();
 		}
 
 		return currentStatus; // Needs to return a ReturnPlay Object
@@ -101,11 +113,28 @@ public class Chess {
 		// Creates new board
 		currentBoard = new ReturnPiece[8][8];
 
-		// Adds all the white pawns
-		for (int file = 0; file < 8; file++) currentBoard[getRank(2)][file] = new Pawn(Player.white, getFile(file), 2);
+		// Adds all the white pieces
+		for (int col = 0; col < 8; col++) currentBoard[col][getRank(2)] = new Pawn(Player.white, getFile(col), 2); // Pawns
+		currentBoard[getFile('a')][getRank(1)] = new Rook(Player.white, PieceFile.a, 1); // Rook Left
+		currentBoard[getFile('b')][getRank(1)] = new Knight(Player.white, PieceFile.b, 1); // Knight Left
+		currentBoard[getFile('c')][getRank(1)] = new Bishop(Player.white, PieceFile.c, 1); // Bishop Left
+		currentBoard[getFile('d')][getRank(1)] = new Queen(Player.white, PieceFile.d, 1); // Queen
+		currentBoard[getFile('e')][getRank(1)] = new King(Player.white, PieceFile.e, 1); // King
+		currentBoard[getFile('f')][getRank(1)] = new Bishop(Player.white, PieceFile.f, 1); // Bishop Right
+		currentBoard[getFile('g')][getRank(1)] = new Knight(Player.white, PieceFile.g, 1); // Knight Right
+		currentBoard[getFile('h')][getRank(1)] = new Rook(Player.white, PieceFile.h, 1); //  Rook Right
 
-		// Adds all the black pawns
-		for (int file = 0; file < 8; file++) currentBoard[getRank(7)][file] = new Pawn(Player.black, getFile(file), 7);
+		// Adds all the black pieces
+		for (int col = 0; col < 8; col++) currentBoard[col][getRank(7)] = new Pawn(Player.black, getFile(col), 7); // Pawns
+		currentBoard[getFile('a')][getRank(8)] = new Rook(Player.black, PieceFile.a, 8); // Rook Left
+		currentBoard[getFile('b')][getRank(8)] = new Knight(Player.black, PieceFile.b, 8); // Knight Left
+		currentBoard[getFile('c')][getRank(8)] = new Bishop(Player.black, PieceFile.c, 8); // Bishop Left
+		currentBoard[getFile('d')][getRank(8)] = new Queen(Player.black, PieceFile.d, 8); // Queen
+		currentBoard[getFile('e')][getRank(8)] = new King(Player.black, PieceFile.e, 8); // King
+		currentBoard[getFile('f')][getRank(8)] = new Bishop(Player.black, PieceFile.f, 8); // Bishop Right
+		currentBoard[getFile('g')][getRank(8)] = new Knight(Player.black, PieceFile.g, 8); // Knight Right
+		currentBoard[getFile('h')][getRank(8)] = new Rook(Player.black, PieceFile.h, 8); //  Rook Right
+		
 
 		// Adds all the pieces from array to arraylist
 		for (int i = 0; i < 8; i++) {
@@ -123,12 +152,12 @@ public class Chess {
 	
 	// Helps gets the rank in the array, as the rank in the array starts from the top
 	public static int getRank(int rank) {
-		return 7 - rank;
+		return 8 - rank;
 	}
 
 	// Converts a int for file to a PieceFile enum
-	public static PieceFile getFile(int file) {
-		switch (file) {
+	public static PieceFile getFile(int column) {
+		switch (column) {
             case 0: return PieceFile.a;
             case 1: return PieceFile.b;
             case 2: return PieceFile.c;
@@ -141,7 +170,7 @@ public class Chess {
 		return PieceFile.a;
 	}
 
-	public static int getIntFile(char file) {
+	public static int getFile(char file) {
 		switch (file) {
             case 'a': return 0;
             case 'b': return 1;
