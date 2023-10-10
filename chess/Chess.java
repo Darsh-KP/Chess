@@ -90,6 +90,11 @@ public class Chess {
 			}
 		}
 
+		// DEBUG
+		// DEBUG
+		// DEBUG
+		// DEBUG
+		// DEBUG
 		// Prints 2d array
 		for (int rank = 0; rank < 8; rank++) {
 			for (int file = 0; file < 8; file++) {
