@@ -47,8 +47,6 @@ public class Pawn extends ReturnPiece {
         // Update piece position data
         pieceFile = Chess.getFile(fileDestination);
         pieceRank = Chess.getRank(rankDestination);
-        
-        System.out.println("En passant target: " + enPassantTarget);
 
         // Check for pawn promotion
         if ((pieceType == PieceType.WP) && (pieceRank == 8)) {
@@ -96,7 +94,9 @@ public class Pawn extends ReturnPiece {
             // Return -1 if move was unsuccesful (Illegal Move)
         
 
-        return 1; // Return 1 for succesful move
+        return 1;
+        // Return 1 for succesful move
+        // -1 for illegal move
     }
 
     // Checks if the move is valid for white pawn
@@ -130,12 +130,8 @@ public class Pawn extends ReturnPiece {
             }
 
             // Check if the piece to capture is of opposite color
-            switch (currentBoard[thisFile + 1][thisRank - 1].pieceType) {
-                case BP: case BR: case BN: case BB: case BQ: case BK:
-                    return 3;
-                default:
-                    return -1;
-            }
+            if (!(Piece.canCapture(this.pieceType, currentBoard[thisFile + 1][thisRank - 1].pieceType))) return -1;
+            return 3;
         }
         
         // Check if the pawn can capture left
@@ -150,12 +146,8 @@ public class Pawn extends ReturnPiece {
             }
             
             // Check if the piece to capture is of opposite color
-            switch (currentBoard[thisFile - 1][thisRank - 1].pieceType) {
-                case BP: case BR: case BN: case BB: case BQ: case BK:
-                    return 3;
-                default:
-                    return -1;
-            }
+            if (!(Piece.canCapture(this.pieceType, currentBoard[thisFile - 1][thisRank - 1].pieceType))) return -1;
+            return 3;
         }
 
         return -1;
@@ -196,12 +188,8 @@ public class Pawn extends ReturnPiece {
             }
 
             // Check if the piece to capture is of opposite color
-            switch (currentBoard[thisFile + 1][thisRank + 1].pieceType) {
-                case WP: case WR: case WN: case WB: case WQ: case WK:
-                    return 3;
-                default:
-                    return -1;
-            }
+            if (!(Piece.canCapture(this.pieceType, currentBoard[thisFile + 1][thisRank + 1].pieceType))) return -1;
+            return 3;
         }
         
         // Check if the pawn can capture left
@@ -216,12 +204,8 @@ public class Pawn extends ReturnPiece {
             }
             
             // Check if the piece to capture is of opposite color
-            switch (currentBoard[thisFile - 1][thisRank + 1].pieceType) {
-                case WP: case WR: case WN: case WB: case WQ: case WK:
-                    return 3;
-                default:
-                    return -1;
-            }
+            if (!(Piece.canCapture(this.pieceType, currentBoard[thisFile - 1][thisRank + 1].pieceType))) return -1;
+            return 3;
         }
 
         return -1;

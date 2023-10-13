@@ -89,7 +89,7 @@ public class Chess {
 					//moveStatus = (((Rook)selectedPiece).move(moveToString, currentBoard));
 					break;
 				case WN:
-					//moveStatus = (((Knight)selectedPiece).move(moveToString, currentBoard));
+					moveStatus = (((Knight)selectedPiece).move(moveToString, currentBoard));
 					break;
 				case WB:
 					//moveStatus = (((Bishop)selectedPiece).move(moveToString, currentBoard));
@@ -112,7 +112,7 @@ public class Chess {
 					//moveStatus = (((Rook)selectedPiece).move(moveToString, currentBoard));
 					break;
 				case BN:
-					//moveStatus = (((Knight)selectedPiece).move(moveToString, currentBoard));
+					moveStatus = (((Knight)selectedPiece).move(moveToString, currentBoard));
 					break;
 				case BB:
 					//moveStatus = (((Bishop)selectedPiece).move(moveToString, currentBoard));
