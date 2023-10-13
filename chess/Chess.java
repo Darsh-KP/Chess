@@ -65,9 +65,11 @@ public class Chess {
 		}
 
 		// Move the piece
-		//System.out.println(getIntFile(move.charAt(0)) + " " + Character.getNumericValue(move.charAt(1)));
-		//ReturnPiece selectedPiece = currentBoard[getIntFile(move.charAt(0))][Character.getNumericValue(move.charAt(1))];
-		//((Pawn) selectedPiece).move(move.substring(3));
+		// System.out.println(getFile(move.charAt(0)) + " " + getRank(Character.getNumericValue(move.charAt(1))));
+		ReturnPiece selectedPiece = currentBoard[getFile(move.charAt(0))][getRank(Character.getNumericValue(move.charAt(1)))];
+		if (((Pawn) selectedPiece).move(move.substring(3), currentBoard) == -1) {
+			currentStatus.message = Message.ILLEGAL_MOVE;
+		}
 			// If succesful, do nothing
 			// Otherwise illegal move
 
@@ -96,6 +98,7 @@ public class Chess {
 		// DEBUG
 		// DEBUG
 		// Prints 2d array
+		/*
 		for (int rank = 0; rank < 8; rank++) {
 			for (int file = 0; file < 8; file++) {
 				if (currentBoard[file][rank] != null)
@@ -103,6 +106,7 @@ public class Chess {
 			}
 			System.out.println();
 		}
+		*/
 
 		return currentStatus; // Needs to return a ReturnPlay Object
 	}

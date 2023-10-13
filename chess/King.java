@@ -9,4 +9,10 @@ public class King extends ReturnPiece {
         pieceFile = file;
         pieceRank = rank;
     }
+
+    // Castleing
+            // Cannot castle if check going thourgh
+            // Cannot castle if piece has moved
+            // Only allowed if nothing in the way
+
 }
