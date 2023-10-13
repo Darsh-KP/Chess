@@ -43,8 +43,6 @@ public class Chess {
 		white, black
 	}
 
-
-
 	// Stores the pieces and the status of the game
 	private static ReturnPlay currentStatus;
 	private static ReturnPiece[][] currentBoard;
@@ -57,6 +55,12 @@ public class Chess {
 		// Reset message everytime
 		currentStatus.message = null;
 
+		// Check if there are 2 positions as input
+		if (move.length() < 5) {
+			currentStatus.message = Message.ILLEGAL_MOVE;
+			return currentStatus;
+		}
+
 		// Check for Resign
 		if ((move.length() > 5) && (move.substring(0, 6).equals("resign"))) {
 			// Return the same board with specific message
@@ -64,11 +68,70 @@ public class Chess {
 			return currentStatus;
 		}
 
-		// Move the piece
-		// System.out.println(getFile(move.charAt(0)) + " " + getRank(Character.getNumericValue(move.charAt(1))));
-		ReturnPiece selectedPiece = currentBoard[getFile(move.charAt(0))][getRank(Character.getNumericValue(move.charAt(1)))];
-		if (((Pawn) selectedPiece).move(move.substring(3), currentBoard) == -1) {
+		// Illegal move if no piece is selected
+		if (currentBoard[getFile(move.charAt(0))][getRank(Character.getNumericValue(move.charAt(1)))] == null) {
 			currentStatus.message = Message.ILLEGAL_MOVE;
+			return currentStatus;
+		}
+
+		// Select the piece
+		ReturnPiece selectedPiece = currentBoard[getFile(move.charAt(0))][getRank(Character.getNumericValue(move.charAt(1)))];
+		
+		// Check if the selected piece is of current player, if so, make a move
+		int moveStatus = -1;
+		String moveToString = move.substring(3);
+		if (currentPlayer == Player.white) {
+			switch (selectedPiece.pieceType) {
+				case WP:
+					moveStatus = (((Pawn)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case WR:
+					//moveStatus = (((Rook)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case WN:
+					//moveStatus = (((Knight)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case WB:
+					//moveStatus = (((Bishop)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case WQ:
+					//moveStatus = (((Queen)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case WK:
+					//moveStatus = (((King)selectedPiece).move(moveToString, currentBoard));
+					break;
+				default:
+					moveStatus = -1;
+			}
+		} else if (currentPlayer == Player.black) {
+			switch (selectedPiece.pieceType) {
+				case BP:
+					moveStatus = (((Pawn)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case BR:
+					//moveStatus = (((Rook)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case BN:
+					//moveStatus = (((Knight)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case BB:
+					//moveStatus = (((Bishop)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case BQ:
+					//moveStatus = (((Queen)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case BK:
+					//moveStatus = (((King)selectedPiece).move(moveToString, currentBoard));
+					break;
+				default:
+					moveStatus = -1;
+			}
+		}
+		
+		// Check if the move was legal
+		if (moveStatus == -1) {
+			currentStatus.message = Message.ILLEGAL_MOVE;
+			return currentStatus;
 		}
 			// If succesful, do nothing
 			// Otherwise illegal move
