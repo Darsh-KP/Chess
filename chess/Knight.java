@@ -40,52 +40,59 @@ public class Knight extends ReturnPiece {
         // Check if the knight can move...
         if ((toFile == thisFile + 1) && (toRank == thisRank - 2)) { // 2 up, 1 right
             // Empty square
-            if (currentBoard[thisFile + 1][thisRank - 2] == null) return 1;
+            if (currentBoard[toFile][toRank] == null) return 1;
 
             // Capture the piece
-            if (Piece.canCapture(this.pieceType, currentBoard[thisFile + 1][thisRank - 2].pieceType)) return 1;
+            if (Piece.canCapture(this.pieceType, currentBoard[toFile][toRank].pieceType)) return 1;
+
         } else if ((toFile == thisFile - 1) && (toRank == thisRank - 2)) { // 2 up, 1 left
             // Empty square
-            if (currentBoard[thisFile - 1][thisRank - 2] == null) return 1;
+            if (currentBoard[toFile][toRank] == null) return 1;
 
             // Capture the piece
-            if (Piece.canCapture(this.pieceType, currentBoard[thisFile - 1][thisRank - 2].pieceType)) return 1;
+            if (Piece.canCapture(this.pieceType, currentBoard[toFile][toRank].pieceType)) return 1;
+
         } else if ((toFile == thisFile + 1) && (toRank == thisRank + 2)) { // 2 down, 1 right
             // Empty square
-            if (currentBoard[thisFile + 1][thisRank + 2] == null) return 1;
+            if (currentBoard[toFile][toRank] == null) return 1;
 
             // Capture the piece
-            if (Piece.canCapture(this.pieceType, currentBoard[thisFile + 1][thisRank + 2].pieceType)) return 1;
+            if (Piece.canCapture(this.pieceType, currentBoard[toFile][toRank].pieceType)) return 1;
+
         } else if ((toFile == thisFile - 1) && (toRank == thisRank + 2)) { // 2 down, 1 left
             // Empty square
-            if (currentBoard[thisFile - 1][thisRank + 2] == null) return 1;
+            if (currentBoard[toFile][toRank] == null) return 1;
 
             // Capture the piece
-            if (Piece.canCapture(this.pieceType, currentBoard[thisFile - 1][thisRank + 2].pieceType)) return 1;
+            if (Piece.canCapture(this.pieceType, currentBoard[toFile][toRank].pieceType)) return 1;
+
         } else if ((toFile == thisFile + 2) && (toRank == thisRank - 1)) { // 1 up, 2 right
             // Empty square
-            if (currentBoard[thisFile + 2][thisRank - 1] == null) return 1;
+            if (currentBoard[toFile][toRank] == null) return 1;
 
             // Capture the piece
-            if (Piece.canCapture(this.pieceType, currentBoard[thisFile + 2][thisRank - 1].pieceType)) return 1;
+            if (Piece.canCapture(this.pieceType, currentBoard[toFile][toRank].pieceType)) return 1;
+
         } else if ((toFile == thisFile - 2) && (toRank == thisRank - 1)) { // 1 up, 2 left
             // Empty square
-            if (currentBoard[thisFile - 2][thisRank - 1] == null) return 1;
+            if (currentBoard[toFile][toRank] == null) return 1;
 
             // Capture the piece
-            if (Piece.canCapture(this.pieceType, currentBoard[thisFile - 2][thisRank - 1].pieceType)) return 1;
+            if (Piece.canCapture(this.pieceType, currentBoard[toFile][toRank].pieceType)) return 1;
+
         } else if ((toFile == thisFile + 2) && (toRank == thisRank + 1)) { // 1 down, 2 right
             // Empty square
-            if (currentBoard[thisFile + 2][thisRank + 1] == null) return 1;
+            if (currentBoard[toFile][toRank] == null) return 1;
 
             // Capture the piece
-            if (Piece.canCapture(this.pieceType, currentBoard[thisFile + 2][thisRank + 1].pieceType)) return 1;
+            if (Piece.canCapture(this.pieceType, currentBoard[toFile][toRank].pieceType)) return 1;
+            
         } else if ((toFile == thisFile - 2) && (toRank == thisRank + 1)) { // 1 down, 2 left
             // Empty square
-            if (currentBoard[thisFile - 2][thisRank + 1] == null) return 1;
+            if (currentBoard[toFile][toRank] == null) return 1;
 
             // Capture the piece
-            if (Piece.canCapture(this.pieceType, currentBoard[thisFile - 2][thisRank + 1].pieceType)) return 1;
+            if (Piece.canCapture(this.pieceType, currentBoard[toFile][toRank].pieceType)) return 1;
         }
 
         return -1;

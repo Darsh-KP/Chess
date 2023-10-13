@@ -107,20 +107,20 @@ public class Pawn extends ReturnPiece {
 
         // Check if the pawn can move forward
         if ((toFile == thisFile) && (toRank == thisRank - 1)) {
-            if (currentBoard[thisFile][thisRank - 1] != null) return -1;
+            if (currentBoard[toFile][toRank] != null) return -1;
             return 1;
         }
 
         // Check if the pawn can take 2 steps from the starting position
         if ((toFile == thisFile) && (toRank == Chess.getRank(4))) {
             if (currentBoard[thisFile][thisRank - 1] != null) return -1;
-            if (currentBoard[thisFile][thisRank - 2] != null) return -1;
+            if (currentBoard[toFile][toRank] != null) return -1;
             return 2;
         }
 
         // Check if the pawn can capture right
         if ((toFile == thisFile + 1) && (toRank == thisRank - 1)) {
-            if (currentBoard[thisFile + 1][thisRank - 1] == null) {
+            if (currentBoard[toFile][toRank] == null) {
                 // Check if you en-passant is possible
                 if ((thisRank == Chess.getRank(5)) && 
                     (currentBoard[thisFile + 1][thisRank].equals(enPassantTarget))) 
@@ -136,7 +136,7 @@ public class Pawn extends ReturnPiece {
         
         // Check if the pawn can capture left
         if ((toFile == thisFile - 1) && (toRank == thisRank - 1)) {
-            if (currentBoard[thisFile - 1][thisRank - 1] == null) {
+            if (currentBoard[toFile][toRank] == null) {
                 // Check if you en-passant is possible
                 if ((thisRank == Chess.getRank(5)) && 
                     (currentBoard[thisFile - 1][thisRank].equals(enPassantTarget))) 
@@ -165,20 +165,20 @@ public class Pawn extends ReturnPiece {
 
         // Check if the pawn can move forward
         if ((toFile == thisFile) && (toRank == thisRank + 1)) {
-            if (currentBoard[thisFile][thisRank + 1] != null) return -1;
+            if (currentBoard[toFile][toRank] != null) return -1;
             return 1;
         }
 
         // Check if the pawn can take 2 steps from the starting position
         if ((toFile == thisFile) && (toRank == Chess.getRank(5))) {
             if (currentBoard[thisFile][thisRank + 1] != null) return -1;
-            if (currentBoard[thisFile][thisRank + 2] != null) return -1;
+            if (currentBoard[toFile][toRank] != null) return -1;
             return 2;
         }
 
         // Check if the pawn can capture right
         if ((toFile == thisFile + 1) && (toRank == thisRank + 1)) {
-            if (currentBoard[thisFile + 1][thisRank + 1] == null) {
+            if (currentBoard[toFile][toRank] == null) {
                 // Check if you en-passant is possible
                 if ((thisRank == Chess.getRank(4)) && 
                     (currentBoard[thisFile + 1][thisRank].equals(enPassantTarget))) 
@@ -194,7 +194,7 @@ public class Pawn extends ReturnPiece {
         
         // Check if the pawn can capture left
         if ((toFile == thisFile - 1) && (toRank == thisRank + 1)) {
-            if (currentBoard[thisFile - 1][thisRank + 1] == null) {
+            if (currentBoard[toFile][toRank] == null) {
                 // Check if you en-passant is possible
                 if ((thisRank == Chess.getRank(4)) && 
                     (currentBoard[thisFile - 1][thisRank].equals(enPassantTarget))) 
