@@ -7,7 +7,7 @@ public class Pawn extends ReturnPiece {
     static ReturnPiece enPassantTarget;
 
     // Creates a pawn, which can be casted to returnPiece
-    Pawn(Chess.Player player, PieceFile file, int rank) {
+    Pawn(Player player, PieceFile file, int rank) {
         pieceType = (player == Player.white) ? PieceType.WP : PieceType.BP;
         pieceFile = file;
         pieceRank = rank;

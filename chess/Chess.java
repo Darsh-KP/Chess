@@ -103,7 +103,7 @@ public class Chess {
 				moveStatus = (((Queen)selectedPiece).move(moveToString, currentBoard));
 				break;
 			case WK: case BK: // King
-				//moveStatus = (((King)selectedPiece).move(moveToString, currentBoard));
+				moveStatus = (((King)selectedPiece).move(moveToString, currentBoard));
 				break;
 		}
 		

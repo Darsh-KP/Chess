@@ -3,8 +3,11 @@ package chess;
 import chess.Chess.Player;
 
 public class Rook extends ReturnPiece {
+    // Keeps track if the piece is allowed to castle
+    boolean canCastle = true;
+
     // Creates a rook, which can be casted to returnPiece
-    Rook(Chess.Player player, PieceFile file, int rank) {
+    Rook(Player player, PieceFile file, int rank) {
         pieceType = (player == Player.white) ? PieceType.WR : PieceType.BR;
         pieceFile = file;
         pieceRank = rank;
@@ -17,6 +20,9 @@ public class Rook extends ReturnPiece {
         
         // Check if the move is valid
         if (isValidMove(currentBoard, fileDestination, rankDestination) == -1) return -1;
+
+        // Cannot caslte once the piece has moved
+        if (canCastle == true) canCastle = false;
 
         // Update the board
         currentBoard[fileDestination][rankDestination] = currentBoard[Chess.getFile(pieceFile)][Chess.getRank(pieceRank)];
