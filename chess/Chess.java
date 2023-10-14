@@ -126,18 +126,11 @@ public class Chess {
 				Pawn.enPassantTarget = null;
 		}
 
-		// Set the en passant target here
-		// Must clear after any other move
+		// If move is sucessful, change the current player to another player
+		currentPlayer = (currentPlayer == Player.white) ? Player.black : Player.white;
 
 		// Check for check
 			// Check for checkmate
-
-		// Draw if draw was called
-
-		// (Optional) Other draws
-
-		// If move is sucessful, change the current player to another player
-		currentPlayer = (currentPlayer == Player.white) ? Player.black : Player.white;
 
 		// Adds all the pieces from array to arraylist
 		currentStatus.piecesOnBoard = new ArrayList<ReturnPiece>();
@@ -148,13 +141,21 @@ public class Chess {
 			}
 		}
 
+		// Draw if draw was called
+		if (move.substring(move.length() - 5).equals("draw?")) {
+			// Return the same board with specific message
+			currentStatus.message = Message.DRAW;
+			return currentStatus;
+		}
+		
+
 		// DEBUG
 		// DEBUG
 		// DEBUG
 		// DEBUG
 		// DEBUG
-		// Prints 2d array
 		/*
+		// Prints 2d array
 		for (int rank = 0; rank < 8; rank++) {
 			for (int file = 0; file < 8; file++) {
 				if (currentBoard[file][rank] != null)
