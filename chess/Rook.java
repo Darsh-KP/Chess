@@ -37,7 +37,7 @@ public class Rook extends ReturnPiece {
         int thisFile = Chess.getFile(pieceFile);
         int thisRank = Chess.getRank(pieceRank);
 
-        // Figure out which direct we are moving towards
+        // Figure out which direction we are moving towards
         if ((toFile == thisFile) && (toRank < thisRank)) { // Going up
             // Check if square are empty up till the destination
             for (int r = thisRank - 1; r != toRank; r--) {

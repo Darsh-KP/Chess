@@ -40,7 +40,7 @@ public class Bishop extends ReturnPiece {
         // Check if the given square is a diagonal (subtraction)
         if (Math.abs(thisFile - toFile) != Math.abs(thisRank - toRank)) return -1;
 
-        // Figure out which direct we are moving towards
+        // Figure out which direction we are moving towards
         if ((toFile > thisFile) && (toRank < thisRank)) { // Going up, right
             // Check if square are empty up till the destination
             for (int i = 1; i < 8; i++) {
