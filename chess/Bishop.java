@@ -41,13 +41,13 @@ public class Bishop extends ReturnPiece {
         if (Math.abs(thisFile - toFile) != Math.abs(thisRank - toRank)) return -1;
 
         // Figure out which direct we are moving towards
-        if ((toFile == thisFile) && (toRank < thisRank)) { // Going up
-            System.out.println("Moving rook up");
-            System.out.println(thisRank + " to " + toRank);
+        if ((toFile > thisFile) && (toRank < thisRank)) { // Going up, right
             // Check if square are empty up till the destination
-            for (int r = thisRank - 1; r != toRank; r--) {
-                System.out.println(r + " = " + toRank);
-                if (currentBoard[toFile][r] != null) return -1;
+            for (int i = 1; i < 8; i++) {
+                // If we have reached the target square, stop
+                if (((thisFile + i) == toFile) && ((thisRank - i) == toRank)) break;
+
+                if (currentBoard[thisFile + i][thisRank - i] != null) return -1;
             }
 
             // Empty square
@@ -56,10 +56,13 @@ public class Bishop extends ReturnPiece {
             // Capture the piece
             if (Piece.canCapture(this.pieceType, currentBoard[toFile][toRank].pieceType)) return 1;
 
-        } else if ((toFile == thisFile) && (toRank > thisRank)) { // Going down
+        } else if ((toFile < thisFile) && (toRank < thisRank)) { // Going up, left
             // Check if square are empty up till the destination
-            for (int r = thisRank + 1; r != toRank; r++) {
-                if (currentBoard[toFile][r] != null) return -1;
+            for (int i = 1; i < 8; i++) {
+                // If we have reached the target square, stop
+                if (((thisFile - i) == toFile) && ((thisRank - i) == toRank)) break;
+
+                if (currentBoard[thisFile - i][thisRank - i] != null) return -1;
             }
 
             // Empty square
@@ -68,10 +71,13 @@ public class Bishop extends ReturnPiece {
             // Capture the piece
             if (Piece.canCapture(this.pieceType, currentBoard[toFile][toRank].pieceType)) return 1;
 
-        } else if ((toFile > thisFile) && (toRank == thisRank)) { // Going right
+        } else if ((toFile > thisFile) && (toRank > thisRank)) { // Going down, right
             // Check if square are empty up till the destination
-            for (int f = thisFile + 1; f != toFile; f++) {
-                if (currentBoard[f][toRank] != null) return -1;
+            for (int i = 1; i < 8; i++) {
+                // If we have reached the target square, stop
+                if (((thisFile + i) == toFile) && ((thisRank + i) == toRank)) break;
+
+                if (currentBoard[thisFile + i][thisRank + i] != null) return -1;
             }
 
             // Empty square
@@ -80,10 +86,13 @@ public class Bishop extends ReturnPiece {
             // Capture the piece
             if (Piece.canCapture(this.pieceType, currentBoard[toFile][toRank].pieceType)) return 1;
 
-        } else if ((toFile < thisFile) && (toRank == thisRank)) { // Going left
+        } else if ((toFile < thisFile) && (toRank > thisRank)) { // Going down, left
             // Check if square are empty up till the destination
-            for (int f = thisFile - 1; f != toFile; f--) {
-                if (currentBoard[f][toRank] != null) return -1;
+            for (int i = 1; i < 8; i++) {
+                // If we have reached the target square, stop
+                if (((thisFile - i) == toFile) && ((thisRank + i) == toRank)) break;
+
+                if (currentBoard[thisFile - i][thisRank + i] != null) return -1;
             }
 
             // Empty square

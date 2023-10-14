@@ -97,7 +97,7 @@ public class Chess {
 				moveStatus = (((Knight)selectedPiece).move(moveToString, currentBoard));
 				break;
 			case WB: case BB: // Bishop
-				//moveStatus = (((Bishop)selectedPiece).move(moveToString, currentBoard));
+				moveStatus = (((Bishop)selectedPiece).move(moveToString, currentBoard));
 				break;
 			case WQ: case BQ: // Queen
 				//moveStatus = (((Queen)selectedPiece).move(moveToString, currentBoard));

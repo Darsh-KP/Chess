@@ -39,11 +39,8 @@ public class Rook extends ReturnPiece {
 
         // Figure out which direct we are moving towards
         if ((toFile == thisFile) && (toRank < thisRank)) { // Going up
-            System.out.println("Moving rook up");
-            System.out.println(thisRank + " to " + toRank);
             // Check if square are empty up till the destination
             for (int r = thisRank - 1; r != toRank; r--) {
-                System.out.println(r + " = " + toRank);
                 if (currentBoard[toFile][r] != null) return -1;
             }
 
