@@ -4,7 +4,7 @@ import chess.Chess.Player;
 
 public class Pawn extends ReturnPiece {
     // Keeps track of a piece that you can en-passent
-    private static ReturnPiece enPassantTarget;
+    static ReturnPiece enPassantTarget;
 
     // Creates a pawn, which can be casted to returnPiece
     Pawn(Chess.Player player, PieceFile file, int rank) {
@@ -27,11 +27,12 @@ public class Pawn extends ReturnPiece {
         }
 
         // Check is the move is valid (legal)
+        int returnStatus = 1;
         switch (moveStatus) {
             case -1:
                 return -1;
             case 2:
-                if (enPassantTarget != this) enPassantTarget = this;
+                returnStatus = 2;
                 break;
             case 4:
                 // Capture if en-passant is possible
@@ -94,7 +95,7 @@ public class Pawn extends ReturnPiece {
             // Return -1 if move was unsuccesful (Illegal Move)
         
 
-        return 1;
+        return returnStatus;
         // Return 1 for succesful move
         // -1 for illegal move
     }

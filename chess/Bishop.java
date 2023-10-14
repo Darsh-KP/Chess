@@ -38,7 +38,7 @@ public class Bishop extends ReturnPiece {
         int thisRank = Chess.getRank(pieceRank);
 
         // Check if the given square is a diagonal (subtraction)
-
+        if (Math.abs(thisFile - toFile) != Math.abs(thisRank - toRank)) return -1;
 
         // Figure out which direct we are moving towards
         if ((toFile == thisFile) && (toRank < thisRank)) { // Going up

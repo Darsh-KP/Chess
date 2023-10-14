@@ -105,8 +105,6 @@ public class Chess {
 			case WK: case BK: // King
 				//moveStatus = (((King)selectedPiece).move(moveToString, currentBoard));
 				break;
-			//default:
-			//	moveStatus = -1;
 		}
 		
 		// Check if the move was legal
@@ -114,8 +112,22 @@ public class Chess {
 			currentStatus.message = Message.ILLEGAL_MOVE;
 			return currentStatus;
 		}
-			// If succesful, do nothing
-			// Otherwise illegal move
+
+		// Set's en-passant target
+		switch (selectedPiece.pieceType) {
+			case WP: case BP:
+				// If it was a pawns initial 2 step move, set en-passant target
+				if (moveStatus == 2) {
+					Pawn.enPassantTarget = selectedPiece;
+					break;
+				}
+			default:
+				// Remove en-passant taget for any other move
+				Pawn.enPassantTarget = null;
+		}
+
+		// Set the en passant target here
+		// Must clear after any other move
 
 		// Check for check
 			// Check for checkmate
