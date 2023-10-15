@@ -4,7 +4,7 @@ import chess.ReturnPiece.PieceType;
 import chess.Chess.Player;
 
 public class Piece {
-    private void Piece() {}
+    private Piece() {}
 
     // Checks if a piece can capture another piece, opposite colors mean you can capture
     public static boolean canCapture(PieceType selectedPieceType, PieceType targetPieceType) {
