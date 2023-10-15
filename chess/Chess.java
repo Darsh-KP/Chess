@@ -154,6 +154,8 @@ public class Chess {
 				Pawn.enPassantTarget = null;
 		}
 
+		// If after making the move, current player is in check, revert the move
+
 		// If move is sucessful, change the current player to another player
 		currentPlayer = (currentPlayer == Player.white) ? Player.black : Player.white;
 
@@ -165,9 +167,6 @@ public class Chess {
 			currentStatus.message = Message.CHECK;
 			// Check for checkmate
 		}
-		System.out.println(currentPlayer);
-		System.out.println("White King: " + King.whiteKing);
-		System.out.println("Black King: " + King.blackKing);
 
 		// Adds all the pieces from array to arraylist
 		currentStatus.piecesOnBoard = new ArrayList<ReturnPiece>();

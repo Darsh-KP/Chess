@@ -245,4 +245,34 @@ public class Piece {
     // Whenever I duplicate board and revert to this board
         // I must update the pointer in Pawn, and King
             // enPassantTarget and king pointers
+            // Castle properties
+    /*
+    Can be done using two methods
+
+    Need to deep copy
+    copyPiece (takes in a piece) {
+        creates new of the same piece with its data.
+    }
+
+    returns void, takes in currentBoard
+    Piece.copyCurrentBoard {
+        array[][] deep copy
+        enPassantTarget save
+        King1 pointer
+        King2 pointer
+            (optional)
+            4x Rook pointers for castle
+            2x King pointers for castle
+    }
+
+    returns the copy of the board, takes in void
+    Piece.revertBoard {
+        update
+            enPassant Target
+            King1 pointer
+            King2 poitner
+
+    
+    }
+    */
 }
