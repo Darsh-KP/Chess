@@ -238,8 +238,11 @@ public class Piece {
             // Edge cases
             // As much as possible
 
+
+
+
     // For every piece
-        // Do not update the board, make a move if a move results in check???
+        // Do not update the board, if a move results in check???
         // BIG PROBLEM!!!
 
     // Whenever I duplicate board and revert to this board
