@@ -255,6 +255,7 @@ public class Piece {
     Need to deep copy
     copyPiece (takes in a piece) {
         creates new of the same piece with its data.
+            // Rook and king, canCastle data too
     }
 
     returns void, takes in currentBoard
