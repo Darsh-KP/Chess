@@ -86,25 +86,53 @@ public class Chess {
 		// Check if the selected piece is of current player, if so, make a move
 		int moveStatus = -1;
 		String moveToString = move.substring(3);
-		switch (selectedPiece.pieceType) {
-			case WP: case BP: // Pawn
-				moveStatus = (((Pawn)selectedPiece).move(moveToString, currentBoard));
-				break;
-			case WR: case BR: // Rook
-				moveStatus = (((Rook)selectedPiece).move(moveToString, currentBoard));
-				break;
-			case WN: case BN: //Knight
-				moveStatus = (((Knight)selectedPiece).move(moveToString, currentBoard));
-				break;
-			case WB: case BB: // Bishop
-				moveStatus = (((Bishop)selectedPiece).move(moveToString, currentBoard));
-				break;
-			case WQ: case BQ: // Queen
-				moveStatus = (((Queen)selectedPiece).move(moveToString, currentBoard));
-				break;
-			case WK: case BK: // King
-				moveStatus = (((King)selectedPiece).move(moveToString, currentBoard));
-				break;
+		
+		if (currentPlayer == Player.white) {
+			switch (selectedPiece.pieceType) {
+				case WP:
+					moveStatus = (((Pawn)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case WR:
+					moveStatus = (((Rook)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case WN:
+					moveStatus = (((Knight)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case WB:
+					moveStatus = (((Bishop)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case WQ:
+					moveStatus = (((Queen)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case WK:
+					moveStatus = (((King)selectedPiece).move(moveToString, currentBoard));
+					break;
+				default:
+					moveStatus = -1;
+			}
+		} else if (currentPlayer == Player.black) {
+			switch (selectedPiece.pieceType) {
+				case BP:
+					moveStatus = (((Pawn)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case BR:
+					moveStatus = (((Rook)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case BN:
+					moveStatus = (((Knight)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case BB:
+					moveStatus = (((Bishop)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case BQ:
+					moveStatus = (((Queen)selectedPiece).move(moveToString, currentBoard));
+					break;
+				case BK:
+					moveStatus = (((King)selectedPiece).move(moveToString, currentBoard));
+					break;
+				default:
+					moveStatus = -1;
+			}
 		}
 		
 		// Check if the move was legal
@@ -130,7 +158,16 @@ public class Chess {
 		currentPlayer = (currentPlayer == Player.white) ? Player.black : Player.white;
 
 		// Check for check
+		ReturnPiece ownKing = (currentPlayer == Player.white) ? King.whiteKing : King.blackKing;
+		int ownKingFile = getFile(ownKing.pieceFile);
+		int ownKingRank = getRank(ownKing.pieceRank);
+		if (Piece.isChecked(currentBoard, currentPlayer, ownKingFile, ownKingRank, false) > 0) {
+			currentStatus.message = Message.CHECK;
 			// Check for checkmate
+		}
+		System.out.println(currentPlayer);
+		System.out.println("White King: " + King.whiteKing);
+		System.out.println("Black King: " + King.blackKing);
 
 		// Adds all the pieces from array to arraylist
 		currentStatus.piecesOnBoard = new ArrayList<ReturnPiece>();

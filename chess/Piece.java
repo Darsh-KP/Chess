@@ -74,7 +74,7 @@ public class Piece {
             }
         }
 
-        for (int r = checkRank + 1; r <= 8; r++) { // Down
+        for (int r = checkRank + 1; r <= 7; r++) { // Down
             if (currentBoard[checkFile][r] != null && !((ignoreOwnKing) && (currentBoard[checkFile][r].pieceType == ownKing))) {
                 if ((currentBoard[checkFile][r].pieceType == oppRook) || (currentBoard[checkFile][r].pieceType == oppQueen)) {
                     totalChecks++;
@@ -83,7 +83,7 @@ public class Piece {
             }
         }
 
-        for (int f = checkFile + 1; f <= 8; f++) { // Right
+        for (int f = checkFile + 1; f <= 7; f++) { // Right
             if (currentBoard[f][checkRank] != null && !((ignoreOwnKing) && (currentBoard[f][checkRank].pieceType == ownKing))) {
                 if ((currentBoard[f][checkRank].pieceType == oppRook) || (currentBoard[f][checkRank].pieceType == oppQueen)) {
                     totalChecks++;
@@ -102,7 +102,7 @@ public class Piece {
         }
 
         // If opposite color bishop or queen in diagonal, then check
-        for (int i = 1; ((checkFile + i) <= 8) && ((checkRank - i) >= 0); i++) { // Up, right
+        for (int i = 1; ((checkFile + i) <= 7) && ((checkRank - i) >= 0); i++) { // Up, right
             if (currentBoard[checkFile + i][checkRank - i] != null && !((ignoreOwnKing) && (currentBoard[checkFile + i][checkRank - i].pieceType == ownKing))) {
                 if ((currentBoard[checkFile + i][checkRank - i].pieceType == oppBishop) || (currentBoard[checkFile + i][checkRank - i].pieceType == oppQueen)) {
                     totalChecks++;
@@ -120,7 +120,7 @@ public class Piece {
             }
         }
 
-        for (int i = 1; ((checkFile + i) <= 8) && ((checkRank + i) <= 8); i++) { // Down, right
+        for (int i = 1; ((checkFile + i) <= 7) && ((checkRank + i) <= 7); i++) { // Down, right
             if (currentBoard[checkFile + i][checkRank + i] != null && !((ignoreOwnKing) && (currentBoard[checkFile + i][checkRank + i].pieceType == ownKing))) {
                 if ((currentBoard[checkFile + i][checkRank + i].pieceType == oppBishop) || (currentBoard[checkFile + i][checkRank + i].pieceType == oppQueen)) {
                     totalChecks++;
@@ -129,7 +129,7 @@ public class Piece {
             }
         }
 
-        for (int i = 1; ((checkFile - i) >= 0) && ((checkRank + i) <= 8); i++) { // Down, left
+        for (int i = 1; ((checkFile - i) >= 0) && ((checkRank + i) <= 7); i++) { // Down, left
             if (currentBoard[checkFile - i][checkRank + i] != null && !((ignoreOwnKing) && (currentBoard[checkFile - i][checkRank + i].pieceType == ownKing))) {
                 if ((currentBoard[checkFile - i][checkRank + i].pieceType == oppBishop) || (currentBoard[checkFile - i][checkRank + i].pieceType == oppQueen)) {
                     totalChecks++;
@@ -139,32 +139,69 @@ public class Piece {
         }
 
         // If opposite color knight in the 8 knight moves squares, then check
-        if (((checkFile + 1) <= 8) && ((checkRank - 2) >= 0) && (currentBoard[checkFile + 1][checkRank - 2].pieceType == oppKnight)) totalChecks++; // 2 up, 1 right
-        if (((checkFile - 1) >= 0) && ((checkRank - 2) >= 0) && (currentBoard[checkFile - 1][checkRank - 2].pieceType == oppKnight)) totalChecks++; // 2 up, 1 left
-        if (((checkFile + 1) <= 8) && ((checkRank + 2) <= 8) && (currentBoard[checkFile + 1][checkRank + 2].pieceType == oppKnight)) totalChecks++; // 2 down, 1 right
-        if (((checkFile - 1) >= 0) && ((checkRank + 2) <= 8) && (currentBoard[checkFile - 1][checkRank + 2].pieceType == oppKnight)) totalChecks++; // 2 down, 1 left
-        if (((checkFile + 2) <= 8) && ((checkRank - 1) >= 0) && (currentBoard[checkFile + 2][checkRank - 1].pieceType == oppKnight)) totalChecks++; // 1 up, 2 right
-        if (((checkFile - 2) >= 0) && ((checkRank - 1) >= 0) && (currentBoard[checkFile - 2][checkRank - 1].pieceType == oppKnight)) totalChecks++; // 1 up, 2 left
-        if (((checkFile + 2) <= 8) && ((checkRank + 1) <= 8) && (currentBoard[checkFile + 2][checkRank + 1].pieceType == oppKnight)) totalChecks++; // 1 down, 2 right
-        if (((checkFile - 2) >= 0) && ((checkRank + 1) <= 8) && (currentBoard[checkFile - 2][checkRank + 1].pieceType == oppKnight)) totalChecks++; // 1 down, 2 left
+        if (((checkFile + 1) <= 7) && ((checkRank - 2) >= 0) && 
+            (currentBoard[checkFile + 1][checkRank - 2] != null ) && 
+            (currentBoard[checkFile + 1][checkRank - 2].pieceType == oppKnight)) 
+                totalChecks++; // 2 up, 1 right
+        if (((checkFile - 1) >= 0) && ((checkRank - 2) >= 0) && 
+            (currentBoard[checkFile - 1][checkRank - 2] != null ) && 
+            (currentBoard[checkFile - 1][checkRank - 2].pieceType == oppKnight)) 
+                totalChecks++; // 2 up, 1 left
+        if (((checkFile + 1) <= 7) && ((checkRank + 2) <= 7) && 
+            (currentBoard[checkFile + 1][checkRank + 2] != null ) && 
+            (currentBoard[checkFile + 1][checkRank + 2].pieceType == oppKnight)) 
+                totalChecks++; // 2 down, 1 right
+        if (((checkFile - 1) >= 0) && ((checkRank + 2) <= 7) && 
+            (currentBoard[checkFile - 1][checkRank + 2] != null ) && 
+            (currentBoard[checkFile - 1][checkRank + 2].pieceType == oppKnight)) 
+                totalChecks++; // 2 down, 1 left
+        if (((checkFile + 2) <= 7) && ((checkRank - 1) >= 0) && 
+            (currentBoard[checkFile + 2][checkRank - 1] != null ) && 
+            (currentBoard[checkFile + 2][checkRank - 1].pieceType == oppKnight)) 
+                totalChecks++; // 1 up, 2 right
+        if (((checkFile - 2) >= 0) && ((checkRank - 1) >= 0) && 
+            (currentBoard[checkFile - 2][checkRank - 1] != null ) && 
+            (currentBoard[checkFile - 2][checkRank - 1].pieceType == oppKnight)) 
+                totalChecks++; // 1 up, 2 left
+        if (((checkFile + 2) <= 7) && ((checkRank + 1) <= 7) && 
+            (currentBoard[checkFile + 2][checkRank + 1] != null ) && 
+            (currentBoard[checkFile + 2][checkRank + 1].pieceType == oppKnight)) 
+                totalChecks++; // 1 down, 2 right
+        if (((checkFile - 2) >= 0) && ((checkRank + 1) <= 7) && 
+            (currentBoard[checkFile - 2][checkRank + 1] != null ) && 
+            (currentBoard[checkFile - 2][checkRank + 1].pieceType == oppKnight)) 
+                totalChecks++; // 1 down, 2 left
 
 
         // Opposite color pawn capture position (different direction based on color), then check
         if (oppPawn == PieceType.BP) { // Opposite pawn is black
-            if (((checkFile + 1) <= 8) && ((checkRank - 1) >= 0) && (currentBoard[checkFile + 1][checkRank - 1].pieceType == oppPawn)) totalChecks++; // 1 up, 1 right
-            if (((checkFile - 1) >= 0) && ((checkRank - 1) >= 0) && (currentBoard[checkFile - 1][checkRank - 1].pieceType == oppPawn)) totalChecks++; // 1 up, 1 left
+            if (((checkFile + 1) <= 7) && ((checkRank - 1) >= 0) && 
+                (currentBoard[checkFile + 1][checkRank - 1] != null ) && 
+                (currentBoard[checkFile + 1][checkRank - 1].pieceType == oppPawn)) 
+                    totalChecks++; // 1 up, 1 right
+            if (((checkFile - 1) >= 0) && ((checkRank - 1) >= 0) && 
+                (currentBoard[checkFile - 1][checkRank - 1] != null ) && 
+                (currentBoard[checkFile - 1][checkRank - 1].pieceType == oppPawn)) 
+                    totalChecks++; // 1 up, 1 left
         } else {
-            if (((checkFile + 1) <= 8) && ((checkRank + 1) <= 8) && (currentBoard[checkFile + 1][checkRank + 1].pieceType == oppPawn)) totalChecks++; // 1 down, 1 right
-            if (((checkFile - 1) >= 0) && ((checkRank + 1) <= 8) && (currentBoard[checkFile - 1][checkRank + 1].pieceType == oppPawn)) totalChecks++; // 1 down, 1 left
+            if (((checkFile + 1) <= 7) && ((checkRank + 1) <= 7) && 
+                (currentBoard[checkFile + 1][checkRank + 1] != null ) && 
+                (currentBoard[checkFile + 1][checkRank + 1].pieceType == oppPawn)) 
+                    totalChecks++; // 1 down, 1 right
+            if (((checkFile - 1) >= 0) && ((checkRank + 1) <= 7) && 
+                (currentBoard[checkFile - 1][checkRank + 1] != null ) && 
+                (currentBoard[checkFile - 1][checkRank + 1].pieceType == oppPawn)) 
+                    totalChecks++; // 1 down, 1 left
         }
         
         // Opposite color king in the 8 squares around
         for (int r = -1; r < 2; r++) { // Check top, mid, bot
             boolean calledBreak = false;
-            if (!((checkRank + r) >= 0) || !((checkRank + r) <= 8)) continue;
+            if (!((checkRank + r) >= 0) || !((checkRank + r) <= 7)) continue;
             for (int f = -1; f < 2; f++) { // Check left, mid, right
                 if ((r == 0) && (f == 0)) continue; // Skip the given square
-                if (!((checkFile + f) >= 0) || !((checkFile + f) <= 8)) continue;
+                if (!((checkFile + f) >= 0) || !((checkFile + f) <= 7)) continue;
+                if (currentBoard[checkFile + f][checkRank + r] == null) continue;
 
                 if (currentBoard[checkFile + f][checkRank + r].pieceType == oppKing) {
                     totalChecks++;
@@ -200,4 +237,12 @@ public class Piece {
             // Check for all captures
             // Edge cases
             // As much as possible
+
+    // For every piece
+        // Do not update the board, make a move if a move results in check???
+        // BIG PROBLEM!!!
+
+    // Whenever I duplicate board and revert to this board
+        // I must update the pointer in Pawn, and King
+            // enPassantTarget and king pointers
 }

@@ -6,11 +6,19 @@ public class King extends ReturnPiece {
     // Keeps track if the piece is allowed to castle
     boolean canCastle = true;
 
+    // Keeps track of both kings' positions, used for checking for check
+    static ReturnPiece whiteKing;
+    static ReturnPiece blackKing;
+
     // Creates a king, which can be casted to returnPiece
     King(Player player, PieceFile file, int rank) {
         pieceType = (player == Player.white) ? PieceType.WK : PieceType.BK;
         pieceFile = file;
         pieceRank = rank;
+
+        // Put a tracker on the king
+        if (pieceType == PieceType.WK) whiteKing = this;
+        if (pieceType == PieceType.BK) blackKing = this;
     }
 
     public int move(String moveTo, ReturnPiece[][] currentBoard) {
