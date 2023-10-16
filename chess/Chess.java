@@ -80,6 +80,9 @@ public class Chess {
 			return currentStatus;
 		}
 
+		// Save the board in case we need to revert for an illegal move
+		Piece.saveBoard(currentBoard);
+
 		// Select the piece
 		ReturnPiece selectedPiece = currentBoard[getFile(move.charAt(0))][getRank(Character.getNumericValue(move.charAt(1)))];
 
@@ -154,15 +157,33 @@ public class Chess {
 				Pawn.enPassantTarget = null;
 		}
 
-		// If after making the move, current player is in check, revert the move
+		// If after making the move, current player is in check, revert the move, and call illegal move
+		ReturnPiece ownKing = (currentPlayer == Player.white) ? King.whiteKing : King.blackKing;
+		int ownKingFile = getFile(ownKing.pieceFile);
+		int ownKingRank = getRank(ownKing.pieceRank);
+		if (Piece.isChecked(currentBoard, currentPlayer, ownKingFile, ownKingRank, false) > 0) {
+			Piece.revertBoard(currentBoard);
+
+			// Adds all the pieces from array to arraylist
+			currentStatus.piecesOnBoard = new ArrayList<ReturnPiece>();
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					if (currentBoard[i][j] != null)
+						currentStatus.piecesOnBoard.add(currentBoard[i][j]);
+				}
+			}
+
+			currentStatus.message = Message.ILLEGAL_MOVE;
+			return currentStatus;
+		}
 
 		// If move is sucessful, change the current player to another player
 		currentPlayer = (currentPlayer == Player.white) ? Player.black : Player.white;
 
 		// Check for check
-		ReturnPiece ownKing = (currentPlayer == Player.white) ? King.whiteKing : King.blackKing;
-		int ownKingFile = getFile(ownKing.pieceFile);
-		int ownKingRank = getRank(ownKing.pieceRank);
+		ownKing = (currentPlayer == Player.white) ? King.whiteKing : King.blackKing;
+		ownKingFile = getFile(ownKing.pieceFile);
+		ownKingRank = getRank(ownKing.pieceRank);
 		if (Piece.isChecked(currentBoard, currentPlayer, ownKingFile, ownKingRank, false) > 0) {
 			currentStatus.message = Message.CHECK;
 			// Check for checkmate
@@ -236,7 +257,6 @@ public class Chess {
 		currentBoard[getFile('f')][getRank(8)] = new Bishop(Player.black, PieceFile.f, 8); // Bishop Right
 		currentBoard[getFile('g')][getRank(8)] = new Knight(Player.black, PieceFile.g, 8); // Knight Right
 		currentBoard[getFile('h')][getRank(8)] = new Rook(Player.black, PieceFile.h, 8); //  Rook Right
-		
 
 		// Adds all the pieces from array to arraylist
 		for (int i = 0; i < 8; i++) {

@@ -313,31 +313,39 @@ public class Piece {
 
         // Save en-passant target, and the king pointers
         // Must point to pieces on the copied board, not the original board
+        int targetFile, targetRank;
         
         // En-Passant target
-        int targetFile = Chess.getFile(Pawn.enPassantTarget.pieceFile);
-        int targetRank = Chess.getRank(Pawn.enPassantTarget.pieceRank);
-        enPassantTargetCopy = savedBoard[targetFile][targetRank];
+        if (Pawn.enPassantTarget != null) {
+            targetFile = Chess.getFile(Pawn.enPassantTarget.pieceFile);
+            targetRank = Chess.getRank(Pawn.enPassantTarget.pieceRank);
+            enPassantTargetCopy = savedBoard[targetFile][targetRank];
+        } else enPassantTargetCopy = null;
 
         // White king pos
-        targetFile = Chess.getFile(King.whiteKing.pieceFile);
-        targetFile = Chess.getRank(King.whiteKing.pieceRank);
-        whiteKingCopy = savedBoard[targetFile][targetRank];
+        if (King.whiteKing != null) {
+            targetFile = Chess.getFile(King.whiteKing.pieceFile);
+            targetRank = Chess.getRank(King.whiteKing.pieceRank);
+            whiteKingCopy = savedBoard[targetFile][targetRank];
+        } else whiteKingCopy = null;
         
         // Black king pos
-        targetFile = Chess.getFile(King.blackKing.pieceFile);
-        targetFile = Chess.getRank(King.blackKing.pieceRank);
-        blackKingCopy = savedBoard[targetFile][targetRank];
+        if (King.blackKing != null) {
+            targetFile = Chess.getFile(King.blackKing.pieceFile);
+            targetRank = Chess.getRank(King.blackKing.pieceRank);
+            blackKingCopy = savedBoard[targetFile][targetRank];
+        } else blackKingCopy = null;
     }
 
     // Reverts the state of the game to the saved version
     public static void revertBoard(ReturnPiece[][] currentBoard) {
-        currentBoard = new ReturnPiece[8][8];
-        
-        // Copy all the squares that are not empty
+        // Eampties and copies all the squares that are not empty
         for (int f = 0; f < 8; f++) {
-            for (int r = 0; r < 8; r++) {
-                if (currentBoard[f][r] == null) continue;
+            for (int r = 0; r < 8; r++) { 
+                // Empties the square 
+                currentBoard[f][r] = null;
+                
+                if (savedBoard[f][r] == null) continue;
 
                 currentBoard[f][r] = copyPiece(savedBoard[f][r]);
             }
@@ -345,20 +353,29 @@ public class Piece {
 
         // Load en-passant target, and the king pointers
         // Must point to pieces on the copied board, not the saved board
+        int targetFile, targetRank;
         
         // En-Passant target
-        int targetFile = Chess.getFile(enPassantTargetCopy.pieceFile);
-        int targetRank = Chess.getRank(enPassantTargetCopy.pieceRank);
-        Pawn.enPassantTarget = currentBoard[targetFile][targetRank];
+        if (enPassantTargetCopy != null) {
+            targetFile = Chess.getFile(enPassantTargetCopy.pieceFile);
+            targetRank = Chess.getRank(enPassantTargetCopy.pieceRank);
+            Pawn.enPassantTarget = currentBoard[targetFile][targetRank];
+        } else Pawn.enPassantTarget = null;
+        
 
         // White king pos
-        targetFile = Chess.getFile(whiteKingCopy.pieceFile);
-        targetFile = Chess.getRank(whiteKingCopy.pieceRank);
-        King.whiteKing = currentBoard[targetFile][targetRank];
+        if (whiteKingCopy != null) {
+            targetFile = Chess.getFile(whiteKingCopy.pieceFile);
+            targetRank = Chess.getRank(whiteKingCopy.pieceRank);
+            King.whiteKing = currentBoard[targetFile][targetRank];
+        } else King.whiteKing = null;
+        
         
         // Black king pos
-        targetFile = Chess.getFile(blackKingCopy.pieceFile);
-        targetFile = Chess.getRank(blackKingCopy.pieceRank);
-        King.blackKing = currentBoard[targetFile][targetRank];
+        if (blackKingCopy != null) {
+            targetFile = Chess.getFile(blackKingCopy.pieceFile);
+            targetRank = Chess.getRank(blackKingCopy.pieceRank);
+            King.blackKing = currentBoard[targetFile][targetRank];
+        } else King.blackKing = null;
     }
 }
