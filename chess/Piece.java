@@ -4,6 +4,11 @@ import chess.ReturnPiece.PieceType;
 import chess.Chess.Player;
 
 public class Piece {
+    // Saves the current board, and the static variables if needed to revert
+    private static ReturnPiece[][] savedBoard;
+    private static ReturnPiece enPassantTargetCopy, whiteKingCopy, blackKingCopy;
+    
+
     private Piece() {}
 
     // Checks if a piece can capture another piece, opposite colors mean you can capture
@@ -245,38 +250,115 @@ public class Piece {
         // Do not update the board, if a move results in check???
         // BIG PROBLEM!!!
 
-    // Whenever I duplicate board and revert to this board
-        // I must update the pointer in Pawn, and King
-            // enPassantTarget and king pointers
-            // Castle properties
-    /*
-    Can be done using two methods
+    // Deep copies a piece and returns it
+    private static ReturnPiece copyPiece (ReturnPiece originalPiece) {
+        Rook rookCopy;
+        King kingCopy;
 
-    Need to deep copy
-    copyPiece (takes in a piece) {
-        creates new of the same piece with its data.
-            // Rook and king, canCastle data too
+        // Find the type of piece to copy
+        switch (originalPiece.pieceType) {
+            // Copies white pieces
+            case WP:
+                return new Pawn(Player.white, originalPiece.pieceFile, originalPiece.pieceRank);
+            case WR:
+                rookCopy = new Rook(Player.white, originalPiece.pieceFile, originalPiece.pieceRank);
+                rookCopy.canCastle = ((Rook) originalPiece).canCastle;
+                return rookCopy;
+            case WN:
+                return new Knight(Player.white, originalPiece.pieceFile, originalPiece.pieceRank);
+            case WB:
+                return new Bishop(Player.white, originalPiece.pieceFile, originalPiece.pieceRank);
+            case WQ:
+                return new Queen(Player.white, originalPiece.pieceFile, originalPiece.pieceRank);
+            case WK:
+                kingCopy = new King(Player.white, originalPiece.pieceFile, originalPiece.pieceRank);
+                kingCopy.canCastle = ((King) originalPiece).canCastle;
+                return kingCopy;
+
+            // Copies black pieces
+            case BP:
+                return new Pawn(Player.black, originalPiece.pieceFile, originalPiece.pieceRank);
+            case BR:
+                rookCopy = new Rook(Player.black, originalPiece.pieceFile, originalPiece.pieceRank);
+                rookCopy.canCastle = ((Rook) originalPiece).canCastle;
+                return rookCopy;
+            case BN:
+                return new Knight(Player.black, originalPiece.pieceFile, originalPiece.pieceRank);
+            case BB:
+                return new Bishop(Player.black, originalPiece.pieceFile, originalPiece.pieceRank);
+            case BQ:
+                return new Queen(Player.black, originalPiece.pieceFile, originalPiece.pieceRank);
+            case BK:
+                kingCopy = new King(Player.black, originalPiece.pieceFile, originalPiece.pieceRank);
+                kingCopy.canCastle = ((King) originalPiece).canCastle;
+                return kingCopy;
+        }
+
+        // Code shouldn't get this far ever!!!
+        return new ReturnPiece();
     }
 
-    returns void, takes in currentBoard
-    Piece.copyCurrentBoard {
-        array[][] deep copy
-        enPassantTarget save
-        King1 pointer
-        King2 pointer
-            (optional)
-            4x Rook pointers for castle
-            2x King pointers for castle
+    // Copies the 2d array of the board, and the state of the game
+    public static void saveBoard(ReturnPiece[][] currentBoard) {
+        savedBoard = new ReturnPiece[8][8];
+        
+        // Copy all the squares that are not empty
+        for (int f = 0; f < 8; f++) {
+            for (int r = 0; r < 8; r++) {
+                if (currentBoard[f][r] == null) continue;
+
+                savedBoard[f][r] = copyPiece(currentBoard[f][r]);
+            }
+        }
+
+        // Save en-passant target, and the king pointers
+        // Must point to pieces on the copied board, not the original board
+        
+        // En-Passant target
+        int targetFile = Chess.getFile(Pawn.enPassantTarget.pieceFile);
+        int targetRank = Chess.getRank(Pawn.enPassantTarget.pieceRank);
+        enPassantTargetCopy = savedBoard[targetFile][targetRank];
+
+        // White king pos
+        targetFile = Chess.getFile(King.whiteKing.pieceFile);
+        targetFile = Chess.getRank(King.whiteKing.pieceRank);
+        whiteKingCopy = savedBoard[targetFile][targetRank];
+        
+        // Black king pos
+        targetFile = Chess.getFile(King.blackKing.pieceFile);
+        targetFile = Chess.getRank(King.blackKing.pieceRank);
+        blackKingCopy = savedBoard[targetFile][targetRank];
     }
 
-    returns the copy of the board, takes in void
-    Piece.revertBoard {
-        update
-            enPassant Target
-            King1 pointer
-            King2 poitner
+    // Reverts the state of the game to the saved version
+    public static void revertBoard(ReturnPiece[][] currentBoard) {
+        currentBoard = new ReturnPiece[8][8];
+        
+        // Copy all the squares that are not empty
+        for (int f = 0; f < 8; f++) {
+            for (int r = 0; r < 8; r++) {
+                if (currentBoard[f][r] == null) continue;
 
-    
+                currentBoard[f][r] = copyPiece(savedBoard[f][r]);
+            }
+        }
+
+        // Load en-passant target, and the king pointers
+        // Must point to pieces on the copied board, not the saved board
+        
+        // En-Passant target
+        int targetFile = Chess.getFile(enPassantTargetCopy.pieceFile);
+        int targetRank = Chess.getRank(enPassantTargetCopy.pieceRank);
+        Pawn.enPassantTarget = currentBoard[targetFile][targetRank];
+
+        // White king pos
+        targetFile = Chess.getFile(whiteKingCopy.pieceFile);
+        targetFile = Chess.getRank(whiteKingCopy.pieceRank);
+        King.whiteKing = currentBoard[targetFile][targetRank];
+        
+        // Black king pos
+        targetFile = Chess.getFile(blackKingCopy.pieceFile);
+        targetFile = Chess.getRank(blackKingCopy.pieceRank);
+        King.blackKing = currentBoard[targetFile][targetRank];
     }
-    */
 }
