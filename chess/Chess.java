@@ -144,19 +144,6 @@ public class Chess {
 			return currentStatus;
 		}
 
-		// Set's en-passant target
-		switch (selectedPiece.pieceType) {
-			case WP: case BP:
-				// If it was a pawns initial 2 step move, set en-passant target
-				if (moveStatus == 2) {
-					Pawn.enPassantTarget = selectedPiece;
-					break;
-				}
-			default:
-				// Remove en-passant taget for any other move
-				Pawn.enPassantTarget = null;
-		}
-
 		// If after making the move, current player is in check, revert the move, and call illegal move
 		ReturnPiece ownKing = (currentPlayer == Player.white) ? King.whiteKing : King.blackKing;
 		int ownKingFile = getFile(ownKing.pieceFile);
@@ -175,6 +162,19 @@ public class Chess {
 
 			currentStatus.message = Message.ILLEGAL_MOVE;
 			return currentStatus;
+		}
+
+		// Set's en-passant target
+		switch (selectedPiece.pieceType) {
+			case WP: case BP:
+				// If it was a pawns initial 2 step move, set en-passant target
+				if (moveStatus == 2) {
+					Pawn.enPassantTarget = selectedPiece;
+					break;
+				}
+			default:
+				// Remove en-passant taget for any other move
+				Pawn.enPassantTarget = null;
 		}
 
 		// If move is sucessful, change the current player to another player

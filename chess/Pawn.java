@@ -51,6 +51,9 @@ public class Pawn extends ReturnPiece {
 
         // Check for pawn promotion
         if ((pieceType == PieceType.WP) && (pieceRank == 8)) {
+            // Queen promotion
+            currentBoard[fileDestination][rankDestination] = new Queen(Player.white, pieceFile, pieceRank);
+
             // Check for queen promotion
             if (moveTo.length() >= 3) {
                 if (moveTo.charAt(3) == 'R') {
@@ -62,11 +65,12 @@ public class Pawn extends ReturnPiece {
                 } else if (moveTo.charAt(3) == 'B') {
                     // Bishop promotion
                     currentBoard[fileDestination][rankDestination] = new Bishop(Player.white, pieceFile, pieceRank);
-                } 
+                }
             }
+        } else if ((pieceType == PieceType.BP) && (pieceRank == 1)) {
             // Queen promotion
             currentBoard[fileDestination][rankDestination] = new Queen(Player.white, pieceFile, pieceRank);
-        } else if ((pieceType == PieceType.BP) && (pieceRank == 1)) {
+
             // Check for queen promotion
             if (moveTo.length() >= 3) {
                 if (moveTo.charAt(3) == 'R') {
@@ -80,8 +84,6 @@ public class Pawn extends ReturnPiece {
                     currentBoard[fileDestination][rankDestination] = new Bishop(Player.black, pieceFile, pieceRank);
                 }
             }
-            // Queen promotion
-            currentBoard[fileDestination][rankDestination] = new Queen(Player.black, pieceFile, pieceRank);
         }
 
         return returnStatus;
