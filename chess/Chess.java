@@ -186,7 +186,10 @@ public class Chess {
 		ownKingRank = getRank(ownKing.pieceRank);
 		if (Piece.isChecked(currentBoard, currentPlayer, ownKingFile, ownKingRank, false) > 0) {
 			currentStatus.message = Message.CHECK;
+
 			// Check for checkmate
+			if (Piece.isCheckmate(currentBoard, currentPlayer))
+				currentStatus.message = (currentPlayer == Player.white) ? Message.CHECKMATE_BLACK_WINS: Message.CHECKMATE_WHITE_WINS;
 		}
 
 		// Adds all the pieces from array to arraylist
