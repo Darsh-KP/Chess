@@ -350,17 +350,6 @@ public class Piece {
             King.blackKing = currentBoard[targetFile][targetRank];
         } else King.blackKing = null;
     }
-            
-    // Checking for checkmate
-        // Move the king and see if you can escape check
-        // If the attacking piece can be captured
-            // If the pos of this piece is in check by own color
-            // Doesn't work if double check though!!!!
-        // If a move can block the check
-            // If one of the square in the checking path is in check by own color
-            // Doesn't work if double check though!!!!
-
-    // For more than 1 check, have a counter for that?
 
     // Returns true if the player is checkmated
     public static boolean isCheckmate (ReturnPiece[][] currentBoard, Player ownColor) {
@@ -396,7 +385,29 @@ public class Piece {
         Player oppositeColor = (ownColor == Player.white) ? Player.black : Player.white;
         int checkingPieceFile = Chess.getFile(checkingPiece.pieceFile);
         int checkingPieceRank = Chess.getRank(checkingPiece.pieceRank);
-        if (isChecked(currentBoard, oppositeColor, checkingPieceFile, checkingPieceRank, false) > 0) return false;
+        int counterAttacks = isChecked(currentBoard, oppositeColor, checkingPieceFile, checkingPieceRank, false);
+        ReturnPiece counterPiece;
+
+        if (counterAttacks > 0) {
+            if (counterAttacks > 2) return false;
+            counterPiece = getCheckingPiece(currentBoard, oppositeColor, checkingPieceFile, checkingPieceRank, false);
+
+            // Try countering, if it works then no check mate
+            Piece.saveBoard(currentBoard);
+
+            int counterPieceFile = Chess.getFile(counterPiece.pieceFile);
+            int counterPieceRank = Chess.getRank(counterPiece.pieceRank);
+            currentBoard[checkingPieceFile][checkingPieceRank] = counterPiece;
+            currentBoard[counterPieceFile][counterPieceRank] = null;
+
+            // If there is no check, then no check mate
+            if (isChecked(currentBoard, ownColor, ownKingFile, ownKingRank, false) < 1) {
+                Piece.revertBoard(currentBoard);
+                return false;
+            }
+
+            Piece.revertBoard(currentBoard);
+        }
         
         // If it can't be captured safely by other pieces and it it a pawn, then check if it can be en-passant
         if (checkingPiece.pieceType == PieceType.BP) { // If black pawn is the one providing the check

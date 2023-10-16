@@ -208,23 +208,6 @@ public class Chess {
 			currentStatus.message = Message.DRAW;
 			return currentStatus;
 		}
-		
-
-		// DEBUG
-		// DEBUG
-		// DEBUG
-		// DEBUG
-		// DEBUG
-		/*
-		// Prints 2d array
-		for (int rank = 0; rank < 8; rank++) {
-			for (int file = 0; file < 8; file++) {
-				if (currentBoard[file][rank] != null)
-					System.out.print(currentBoard[file][rank] + " ");
-			}
-			System.out.println();
-		}
-		*/
 
 		return currentStatus; // Needs to return a ReturnPlay Object
 	}
