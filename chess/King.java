@@ -40,6 +40,10 @@ public class King extends ReturnPiece {
         pieceFile = Chess.getFile(fileDestination);
         pieceRank = Chess.getRank(rankDestination);
 
+        // Force update king pos
+        if (pieceType == PieceType.WK) whiteKing = this;
+        else blackKing = this;
+
         return 1;
         // Return 1 for succesful move
         // -1 for illegal move
@@ -67,6 +71,8 @@ public class King extends ReturnPiece {
         // Check if the king can castle
         if (!canCastle) return -1;
 
+        Player currentPlayer;
+
         // Right side castle
         if (toFile == Chess.getFile('g')) {
             // Check if there is a piece on the h file
@@ -84,7 +90,11 @@ public class King extends ReturnPiece {
             if (currentBoard[Chess.getFile('g')][thisRank] != null) return -1;
 
             // Can't castle if the king is in check already
+            currentPlayer = (this.pieceType == PieceType.WK) ? Player.white : Player.black;
+            if (Piece.isChecked(currentBoard, currentPlayer, thisFile, thisRank, false) > 0) return -1;
+
             // Check if the path of the king has a check going through
+            if (Piece.isChecked(currentBoard, currentPlayer, toFile - 1, toRank, true) > 0) return -1;
 
             // Allowed to castle, move the rook
             currentBoard[Chess.getFile('f')][thisRank] = currentBoard[Chess.getFile('h')][thisRank];
@@ -112,8 +122,11 @@ public class King extends ReturnPiece {
             if (currentBoard[Chess.getFile('b')][thisRank] != null) return -1;
 
             // Can't castle if the king is in check already
+            currentPlayer = (this.pieceType == PieceType.WK) ? Player.white : Player.black;
+            if (Piece.isChecked(currentBoard, currentPlayer, thisFile, thisRank, false) > 0) return -1;
+
             // Check if the path of the king has a check going through
-            // or if the king ends up in a check (don't need to do this anymore, as this is checked by the main move method [if there is a check after the move, revert and illegal move])
+            if (Piece.isChecked(currentBoard, currentPlayer, toFile + 1, toRank, true) > 0) return -1;
 
             // Allowed to castle, move the rook
             currentBoard[Chess.getFile('d')][thisRank] = currentBoard[Chess.getFile('a')][thisRank];

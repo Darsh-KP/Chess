@@ -89,7 +89,7 @@ public class Chess {
 		// Check if the selected piece is of current player, if so, make a move
 		int moveStatus = -1;
 		String moveToString = move.substring(3);
-		
+
 		if (currentPlayer == Player.white) {
 			switch (selectedPiece.pieceType) {
 				case WP:
@@ -165,7 +165,7 @@ public class Chess {
 			Piece.revertBoard(currentBoard);
 
 			// Adds all the pieces from array to arraylist
-			currentStatus.piecesOnBoard = new ArrayList<ReturnPiece>();
+			currentStatus.piecesOnBoard.clear();
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
 					if (currentBoard[i][j] != null)
@@ -190,13 +190,14 @@ public class Chess {
 		}
 
 		// Adds all the pieces from array to arraylist
-		currentStatus.piecesOnBoard = new ArrayList<ReturnPiece>();
+		currentStatus.piecesOnBoard.clear();
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (currentBoard[i][j] != null)
 					currentStatus.piecesOnBoard.add(currentBoard[i][j]);
 			}
 		}
+		
 
 		// Draw if draw was called
 		if (move.substring(move.length() - 5).equals("draw?")) {
