@@ -113,6 +113,7 @@ public class King extends ReturnPiece {
 
             // Can't castle if the king is in check already
             // Check if the path of the king has a check going through
+            // or if the king ends up in a check (don't need to do this anymore, as this is checked by the main move method [if there is a check after the move, revert and illegal move])
 
             // Allowed to castle, move the rook
             currentBoard[Chess.getFile('d')][thisRank] = currentBoard[Chess.getFile('a')][thisRank];

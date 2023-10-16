@@ -83,17 +83,6 @@ public class Pawn extends ReturnPiece {
             // Queen promotion
             currentBoard[fileDestination][rankDestination] = new Queen(Player.black, pieceFile, pieceRank);
         }
-        
-        
-        // Cannont move a piece if there is a check
-            // Can move if the move can block a check or capture the checking piece
-                // Cannont capture checking piece if double check, or it results in check
-                // (if check is still present after the move)
-            // Cannot move into a check position
-
-        // Find a way to return the original board if move was unable to be exceuted
-            // Return -1 if move was unsuccesful (Illegal Move)
-        
 
         return returnStatus;
         // Return 1 for succesful move

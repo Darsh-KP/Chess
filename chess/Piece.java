@@ -223,6 +223,18 @@ public class Piece {
     
 
 
+    // Cannont move a piece if there is a check
+            // Can move if the move can block a check or capture the checking piece
+                // Cannont capture checking piece if double check, or it results in check
+                // (if check is still present after the move)
+            // Cannot move into a check position
+
+        // Find a way to return the original board if move was unable to be exceuted
+            // Return -1 if move was unsuccesful (Illegal Move)
+
+
+            
+
     // Checking for checkmate
         // Move the king and see if you can escape check
         // If the attacking piece can be captured
@@ -245,10 +257,6 @@ public class Piece {
 
 
 
-
-    // For every piece
-        // Do not update the board, if a move results in check???
-        // BIG PROBLEM!!!
 
     // Deep copies a piece and returns it
     private static ReturnPiece copyPiece (ReturnPiece originalPiece) {
