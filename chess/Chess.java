@@ -1,3 +1,6 @@
+// Darsh Patel (dkp89)
+// Ohm Patel (op121)
+
 package chess;
 
 import java.util.ArrayList;
