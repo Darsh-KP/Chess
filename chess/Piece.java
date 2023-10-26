@@ -401,7 +401,7 @@ public class Piece {
             currentBoard[counterPieceFile][counterPieceRank] = null;
 
             // If there is no check, then no check mate
-            if (isChecked(currentBoard, ownColor, ownKingFile, ownKingRank, false) < 1) {
+            if (isChecked(currentBoard, ownColor, checkingPieceFile, checkingPieceRank, false) < 1) {
                 Piece.revertBoard(currentBoard);
                 return false;
             }
